@@ -1,3 +1,6 @@
+DIRS=bin
+$(shell mkdir -p $(DIRS))
+
 TARGET = bin
 
 CXX  = g++

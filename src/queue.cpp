@@ -7,6 +7,8 @@ corresponding header file: queue.h
 --------------------------------------------*/
 #include "queue.h"
 #include <random>
+#include <iostream>
+#include <math.h>
 
 Queue::Queue()
      : nPedestrian_(0), groupId_(0), normal_(' '), flux_(0.0)
@@ -15,7 +17,7 @@ Queue::Queue()
     pedestriansPool_.push_back(newPedestrian);
 }
 
-Queue::Queue(const int& n, const double& flux, const int& groupId, const char& normal, const double& v_des_min, const double& v_des_max, const double& xyMin, const double& xyMax)
+Queue::Queue(const int& n, const double& flux, const double& delta_t, const int& groupId, const char& normal, const double& v_des_min, const double& v_des_max, const double& xyMin, const double& xyMax)
      : nPedestrian_(n), groupId_(groupId), normal_(normal), flux_(flux)
 {
     pedestriansPool_.reserve(n); //reserve number of pedestrian in the container
@@ -35,7 +37,9 @@ Queue::Queue(const int& n, const double& flux, const int& groupId, const char& n
             {
                 //random entering time of the pedestrian based on the flux
                 std::uniform_int_distribution<> distr_t(i*10/flux+1, (i+1)*10/flux);
-                t_in = double(distr_t(gen)/10.0);
+                double t_in = double(distr_t(gen))/10.0;
+                while (!(abs(remainder(t_in, delta_t)) <= 1e-06)) //to work for all time step sizes
+                    t_in = double(distr_t(gen))/10.0;
                 x = distr_xy(gen);
                 y = 0.0;
                 v_des_x = 0.0;
@@ -51,7 +55,9 @@ Queue::Queue(const int& n, const double& flux, const int& groupId, const char& n
             for(int i=0; i<n; i++)
             {
                 std::uniform_int_distribution<> distr_t(i*10/flux+1, (i+1)*10/flux);
-                t_in = double(distr_t(gen)/10.0);
+                double t_in = double(distr_t(gen))/10.0;
+                while (!(abs(remainder(t_in, delta_t)) <= 1e-06)) //to work for all time step sizes
+                    t_in = double(distr_t(gen))/10.0;
                 x = 0.0;
                 y = distr_xy(gen);
                 v_des_x = distr_v(gen);

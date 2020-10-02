@@ -10,7 +10,7 @@ for post-processing
 #define CSVWriter_H_
 #include <fstream>
 #include <sstream>
-
+#include <direct.h>
 #include <string>
 #include <vector>
 #include "error.h"
@@ -18,6 +18,9 @@ for post-processing
 
 void CSVwrite(std::vector<Pedestrian>& pedestrians, const double& t, const std::string& name, const int& count)
 {
+    std::string OutputFolder = "./post_processing/results/New/";
+    _mkdir(OutputFolder.c_str());
+
     std::stringstream sstream;
     sstream << "time,ID,Group,x,y,v_x,v_y,a_x,a_y,driving force_x,driving force_y,social force_x,social force_y,boundary force_x,boundary force_y"<< std::endl;;
     std::string header = sstream.str();

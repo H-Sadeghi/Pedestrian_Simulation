@@ -24,8 +24,8 @@ int main()
 	    parameterInitialization();
 
         //creating two queues for regions A and C with group IDs 0 and 1 and normals in y and x directions, respectively
-        Queue queueA(n_queue, flux, 0, 'y', v_des_min, v_des_max, boundaries["b7"][0], boundaries["b8"][0]);
-        Queue queueC(n_queue, flux, 1, 'x', v_des_min, v_des_max, boundaries["b2"][1], boundaries["b1"][1]);
+        Queue queueA(n_queue, flux, delta_t, 0, 'y', v_des_min, v_des_max, boundaries["b7"][0], boundaries["b8"][0]);
+        Queue queueC(n_queue, flux, delta_t, 1, 'x', v_des_min, v_des_max, boundaries["b2"][1], boundaries["b1"][1]);
 
         std::vector<Pedestrian> activePedestrians; //container of the pedestrians which are active in the system
         activePedestrians.reserve(n_queue*2); //reserve total number of pedestrians in this container

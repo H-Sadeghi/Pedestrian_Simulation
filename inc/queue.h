@@ -19,7 +19,7 @@ class Queue
 public:
     Queue();
 
-    Queue(const int& n, const double& flux, const int& groupId, const char& normal, const double& v_des_min, const double& v_des_max, const double& xyMin, const double& xyMax);
+    Queue(const int& n, const double& flux, const double& delta_t, const int& groupId, const char& normal, const double& v_des_min, const double& v_des_max, const double& xyMin, const double& xyMax);
 
     std::vector<Pedestrian> getQueue()
     {

@@ -11,7 +11,7 @@ for visualization
 #include <fstream>
 #include <sstream>
 #include <iomanip>
-
+#include <direct.h>
 #include <string>
 #include <vector>
 #include "error.h"
@@ -19,6 +19,9 @@ for visualization
 
 void VTKwrite(std::vector<Pedestrian>& pedestrians, const std::string& baseName, const size_t& counter)
 {
+    std::string OutputFolder = "./post_processing/results/New/";
+    _mkdir(OutputFolder.c_str());
+
     std::stringstream sstream;
     sstream << "# vtk DataFile Version 3.0\n";
     sstream << "Pedestrian simulation VTK output\n";
